@@ -39,54 +39,80 @@ const featuredCourses = [
 
 export function FeaturedCourses() {
   return (
-    <section className="py-12 container">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+    <section className="py-12 container relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute -right-28 -top-10 w-64 h-64 bg-neo-purple/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute -left-28 top-40 w-64 h-64 bg-neo-orange/5 rounded-full filter blur-3xl"></div>
+      
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 relative z-10">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Featured Courses</h2>
-          <p className="text-gray-500">Explore our most popular learning paths</p>
+          <h2 className="text-2xl font-bold tracking-tight relative inline-block">
+            Featured Courses
+            <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-neo-purple to-neo-orange"></span>
+          </h2>
+          <p className="text-gray-500 mt-2">Explore our most popular learning paths</p>
         </div>
-        <Button variant="ghost" className="mt-4 md:mt-0">
-          View All Courses <ArrowRight className="ml-2 h-4 w-4" />
+        <Button 
+          variant="ghost" 
+          className="mt-4 md:mt-0 group relative overflow-hidden border border-dark-border hover:border-neo-purple"
+        >
+          <span className="absolute inset-0 bg-gradient-to-r from-neo-purple/10 to-neo-orange/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+          <span className="relative z-10 flex items-center">
+            View All Courses 
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </span>
         </Button>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
         {featuredCourses.map((course) => (
-          <Card key={course.id} className="overflow-hidden transition-all hover:shadow-lg">
+          <Card 
+            key={course.id} 
+            className="neo-card border border-dark-border bg-dark-card hover:border-neo-purple/50 transform transition-all duration-300 hover:-translate-y-1"
+          >
             <div className="aspect-video relative overflow-hidden">
               <img
                 src={course.image}
                 alt={course.title}
                 className="object-cover w-full h-full transition-transform hover:scale-105"
               />
-              <Badge className="absolute top-2 right-2" variant={course.level === "Beginner" ? "default" : course.level === "Intermediate" ? "secondary" : "outline"}>
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 via-transparent to-transparent"></div>
+              <Badge 
+                className="absolute top-2 right-2" 
+                variant={course.level === "Beginner" ? "default" : course.level === "Intermediate" ? "secondary" : "outline"}
+              >
                 {course.level}
               </Badge>
             </div>
             <CardHeader className="pb-3">
-              <CardTitle>{course.title}</CardTitle>
+              <CardTitle className="text-white group">
+                <span className="relative">
+                  {course.title}
+                  <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-neo-purple group-hover:w-full transition-all duration-300"></span>
+                </span>
+              </CardTitle>
             </CardHeader>
             <CardContent className="pb-4">
-              <p className="text-gray-600 mb-4">{course.description}</p>
+              <p className="text-gray-400 mb-4">{course.description}</p>
               <div className="flex items-center justify-between text-sm text-gray-500">
                 <div className="flex items-center">
-                  <Clock className="mr-1 h-4 w-4" />
+                  <Clock className="mr-1 h-4 w-4 text-neo-purple" />
                   {course.duration}
                 </div>
                 <div className="flex items-center">
-                  <Users className="mr-1 h-4 w-4" />
+                  <Users className="mr-1 h-4 w-4 text-neo-orange" />
                   {course.students.toLocaleString()}
                 </div>
               </div>
               {course.progress > 0 && (
                 <div className="mt-4">
                   <div className="flex justify-between text-xs mb-1">
-                    <span>Progress</span>
-                    <span>{course.progress}%</span>
+                    <span className="text-gray-400">Progress</span>
+                    <span className="text-neo-purple">{course.progress}%</span>
                   </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-2 bg-dark-bg rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-primary"
+                      className="h-full bg-gradient-to-r from-neo-purple to-neo-orange"
                       style={{ width: `${course.progress}%` }}
                     ></div>
                   </div>
@@ -94,7 +120,7 @@ export function FeaturedCourses() {
               )}
             </CardContent>
             <CardFooter>
-              <Button className="w-full">
+              <Button className="w-full futuristic-button">
                 {course.progress > 0 ? "Continue Learning" : "Start Learning"}
               </Button>
             </CardFooter>
